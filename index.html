@@ -1,33 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Frontend Mentor | NFT preview card component</title>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      color: white;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
   </style>
 </head>
+
 <body>
+  <main >
+    <div class="container" id="panel">
+      <div class="card" id="panel-container">
 
-  Equilibrium #3429
+        <!-- image -->
+        <div class="card__image flex-center">
+          <span></span>
+        </div>
 
-  Our Equilibrium collection promotes balance and calm.
+        <h1 class="card__header">Equilibrium #3429</h1>
 
-  0.041 ETH
-  3 days left
-  
-  Creation of Jules Wyvern
+        <p class="card__text">Our Equilibrium collection promotes balance and calm.</p>
+
+        <div class="balance flex-row">
+          <div class="balance__left">
+            <img src="images/icon-ethereum.svg"> 0.041 ETH
+          </div>
+          <div class="balance__right">
+            <img src="images/icon-clock.svg"> 3 days left
+          </div>
+
+        </div>
+
+        <div class="footer">
+          <div class="footer__text"> <img src="images/image-avatar.png" alt="avatar"> Creation of <span
+              class="footer___name">Jules
+              Wyvern</span> </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://www.frontendmentor.io/profile/Batareika007" target="_blank">Alexei</a>.
   </div>
+<!-- script from codepen https://codepen.io/SeppeDek/pen/wNVMwO -->
+  <script>
+    let myPanel = document.getElementById("panel");
+    let subpanel = document.getElementById("panel-container");
+
+    myPanel.onmousemove = transformPanel;
+    myPanel.onmouseenter = handleMouseEnter;
+    myPanel.onmouseleave = handleMouseLeave;
+
+    let mouseX, mouseY;
+
+    let transformAmount = 5;
+
+    function transformPanel(mouseEvent) {
+      mouseX = mouseEvent.pageX;
+      mouseY = mouseEvent.pageY;
+
+      const centerX = myPanel.offsetLeft + myPanel.clientWidth / 2;
+      const centerY = myPanel.offsetTop + myPanel.clientHeight / 2;
+
+      const percentX = (mouseX - centerX) / (myPanel.clientWidth / 2);
+      const percentY = -((mouseY - centerY) / (myPanel.clientHeight / 2));
+
+      subpanel.style.transform = "perspective(400px) rotateY(" + percentX * transformAmount + "deg) rotateX(" +
+        percentY * transformAmount + "deg)";
+    }
+
+    function handleMouseEnter() {
+      setTimeout(() => {
+        subpanel.style.transition = "";
+      }, 100);
+      subpanel.style.transition = "transform 0.1s";
+    }
+
+    function handleMouseLeave() {
+      subpanel.style.transition = "transform 0.1s";
+      setTimeout(() => {
+        subpanel.style.transition = "";
+      }, 100);
+
+      subpanel.style.transform = "perspective(400px) rotateY(0deg) rotateX(0deg)";
+    }
+  </script>
 </body>
+
 </html>
